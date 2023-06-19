@@ -22,7 +22,7 @@
 #'         with annotations from executing the function.
 #'@import data.table
 #'@import dplyr
-#'@importFrom tuneR readWave writeWave
+#'@importFrom tuneR readWave writeWave play
 #'@importFrom seewave spectro
 #'@importFrom monitoR viewSpec
 #'
