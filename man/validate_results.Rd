@@ -2,14 +2,7 @@
 % Please edit documentation in R/validate_results.R
 \name{validate_results}
 \alias{validate_results}
-\title{Verify detection results
-This function expects certain columns to exist and was made to work with
-data.frames generated from BirdNET detections. The columns required are:
-'filepath': a character string defining the filepath to the original wav file
-'start': numeric, defining the start time of the detection window
-'end': numeric, defining the end time of the detection window
-'confidence': numeric, defining the confidence level
-Optionally, you can have 'common_name' defining species}
+\title{Verify detection results}
 \usage{
 validate_results(
   data,
@@ -41,7 +34,6 @@ Originial data.table with added columns 'verification' and 'notes'
 with annotations from executing the function.
 }
 \description{
-Verify detection results
 This function expects certain columns to exist and was made to work with
 data.frames generated from BirdNET detections. The columns required are:
 'filepath': a character string defining the filepath to the original wav file

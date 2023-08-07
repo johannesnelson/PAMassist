@@ -2,6 +2,7 @@
 
 #' Verify detection results
 #'
+#'
 #' This function expects certain columns to exist and was made to work with
 #' data.frames generated from BirdNET detections. The columns required are:
 #' 'filepath': a character string defining the filepath to the original wav file
@@ -71,7 +72,11 @@ validate_results <- function (data, species = "all", time_buffer = 0, conf = 0, 
 
       wave.obj <- tuneR::readWave(data$filepath[i], from = data$start[i], to = data$end[i], units = 'seconds')
 
-      monitoR::viewSpec(data$filepath[i], start.time = data$start[i]-time_buffer, page.length = 3, units = 'seconds'  )
+      monitoR::viewSpec(data$filepath[i],
+                        start.time = data$start[i]-time_buffer,
+                        page.length = 3,
+                        units = 'seconds',
+                        main = paste(data$common_name[i], "\n Confidence:", data$confidence[i], "\n Filename:", basename(data$filepath[i]), sep = " ") )
       cat(paste("\n Showing detection", i, "out of", nrow(data), "from", basename(data$filepath[i]), "at", data$start[i], "seconds. Confidence:", data$confidence[i], "\n"))
 
       cat(paste( "Enter \n 'y' for yes,\n",

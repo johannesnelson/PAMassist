@@ -70,6 +70,21 @@ This function is very helpful when looking through many false positives for spec
 
 ![Example Image](images/fast_scan_example.png)
 
+
+## Other features
+In addition to the functions to help with validation, there are a number of additional functions that interact with detection dataframes in helpful ways. 
+
+* makeWaves() will download wave files for an entire detection set (so make sure you filter only to the audio you actually want to download). 
+* species_count provides summary statistics about the species present in the data and their associated confidence scores
+* combine_csv_files() is pretty generic, but can help combine detection data in a target directory into a single csv (helpful to combine  all detection data into a single file that can be read in and manipulated at once)
+* nameFiles() allows you to point to a folder of recently collected audio files (maybe on an SD card) and rename those files by appending "locationID_equipmentID_" to whatever the base name of the file is. I use AudioMoths, so the basename of the files is YYMMDD_HHMMSS.WAV (date_time.wav). By renaming the files and encoding more information within them, it becomes easier to add this information to the detection dataframe so that you can then sort by location, date, and time.
+* add.date(), add.time(), and add.locationID() all assume a very specific file naming structure: 
+
+locationID_equipmentID_YYYYMMDD_HHMMSS.wav
+
+This file structure can be achieved with nameFiles(). They each add a new column to the dataframe: 'date', 'time', and 'locationID'. (you'll have to save as a new object, it will not overwrite your dataframe by default). These columns are helpful, especially when all of your data from a PAM survey (millions of detections) gets lumped together, still ensuring that you can filter by spaital and temporal information.
+
+
 ## Collaborating
 
 I freelance as a consultant for acoustic monitoring projects, and I would love to help you with yours!
