@@ -54,7 +54,7 @@ This function uses a prompt-based interface in the console. It will display a sp
 
 Here is an example of what this looks like:
 
-![Example Image](images/example_image.png)
+![Example Image](images/example_image2.png)
 
 ## Collaborating
 
