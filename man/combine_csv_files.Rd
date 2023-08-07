@@ -4,7 +4,7 @@
 \alias{combine_csv_files}
 \title{Combine CSV files in a folder into a single CSV file}
 \usage{
-combine_csv_files(input_folder, output_file)
+combine_csv_files(input_folder)
 }
 \arguments{
 \item{input_folder}{A string representing the path to the folder containing the CSV files to combine.}

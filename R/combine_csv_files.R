@@ -8,12 +8,13 @@
 #'
 #' @return NULL, but a combined CSV file is written to the specified output location.
 #' @export
+#' @importFrom readr read_csv
 #'
 #' @examples
 #' \dontrun{
 #'   combine_csv_files("path/to/input/folder", "combined_file")
 #' }
-combine_csv_files <- function(input_folder, output_file) {
+combine_csv_files <- function(input_folder) {
   # List all CSV files in the folder
   csv_files <- list.files(input_folder, pattern = "*.csv", full.names = TRUE)
 
@@ -23,7 +24,13 @@ combine_csv_files <- function(input_folder, output_file) {
   # Combine all the data frames into a single data frame using rbind
   combined_data_frame <- do.call(rbind, data_frames)
 
-  output_filepath <- file.path(input_folder, paste0(output_file, ".csv"))
+  # Get the name of the input_folder
+  folder_name <- basename(input_folder)
+
+  # Create the output file name using the folder_name
+  output_file_name <- paste0(folder_name, "_full.csv")
+
+  output_filepath <- file.path(input_folder, output_file_name)
 
   # Write the combined data frame to a single CSV file
   write.csv(combined_data_frame, output_filepath, row.names = FALSE)
