@@ -42,19 +42,33 @@ A couple of the other arguments you can input are...
 
 This function uses a prompt-based interface in the console. It will display a spectrogram, ask you a verification question and await input from the user. The user can input:
 
--'y' for yes, indicating that the prediction was correct
--'n' for no, indicating that it was not correct
--'r' for review, indicating that it should be reviewed later
--'s' for skip, leaving NA in the verification column
--'b' for back, to return to the previous detection
--'p' to play the audio aloud
--'w' to write a short .wav file to the working directory of the detection window
--'a' to make a note about the detection, which will go in the notes column
--'q' to quit and optionally save as a .csv. NOTE: you should definitely quit this way, because hitting ESC or terminating the session in any other way will make you lose the verification info you had input up until that point.
+- 'y' for yes, indicating that the prediction was correct
+- 'n' for no, indicating that it was not correct
+- 'r' for review, indicating that it should be reviewed later
+- 's' for skip, leaving NA in the verification column
+- 'b' for back, to return to the previous detection
+- 'p' to play the audio aloud
+- 'w' to write a short .wav file to the working directory of the detection window
+- 'a' to make a note about the detection, which will go in the notes column
+- 'q' to quit and optionally save as a .csv. NOTE: you should definitely quit this way, because hitting ESC or terminating the session in any other way will make you lose the verification info you had input up until that point.
 
 Here is an example of what this looks like:
 
 ![Example Image](images/example_image2.png)
+
+This function is extremely helpful when validating detection data, especially when filtered by species so the annotator is looking only for specific species calls rather than having to keep in mind vocalizations from all potential species.
+
+For faster scanning of detection information, the fast_scan() function displays a grid of spectrograms (default is twelve, but should be adjusted depending on how much screen space is available for viewing them.)
+
+This can be activated just as easily with:
+```
+fast_scan(data)
+```
+For now, there is no way to make annotations on the data seen, so this function does not return anything. However, when using this function, you have the option to input either 'c' to continue to the next page, or a number which will play the audio of the spectrogram with the corresponding index.
+
+This function is very helpful when looking through many false positives for specific signals. This is what it looks like:
+
+![Example Image](images/fast_scan_example.png)
 
 ## Collaborating
 
