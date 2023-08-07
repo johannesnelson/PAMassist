@@ -38,7 +38,7 @@ verify_presence <- function (data, species = 'all', conf = 0) {
   }
 
 
-  data <- data[confidence >= conf,]
+
 
   verifs <- c()
   verif.options <- c("y", "n", "r", "q", "s")
@@ -57,6 +57,7 @@ verify_presence <- function (data, species = 'all', conf = 0) {
     data[,confidence := 0]
   }
 
+  data <- data[confidence >= conf,]
   species_list <- unique(data[,common_name])
   species_presence <- data.table::data.table(common_name = species_list, presence = NA)
   # Skip over observations where verification is already defined

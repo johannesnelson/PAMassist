@@ -1,13 +1,14 @@
 
 
 #' Verify detection results
-#'  This function expects certain columns to exist and was made to work with
-#'  data.frames generated from BirdNET detections. The columns required are:
-#'  'filepath': a character string defining the filepath to the original wav file
-#'  'start': numeric, defining the start time of the detection window
-#'  'end': numeric, defining the end time of the detection window
-#'  'confidence': numeric, defining the confidence level
-#'  Optionally, you can have 'common_name' defining species
+#'
+#' This function expects certain columns to exist and was made to work with
+#' data.frames generated from BirdNET detections. The columns required are:
+#' 'filepath': a character string defining the filepath to the original wav file
+#' 'start': numeric, defining the start time of the detection window
+#' 'end': numeric, defining the end time of the detection window
+#' 'confidence': numeric, defining the confidence level
+#' Optionally, you can have 'common_name' defining species
 #' @name validate_results
 #' @param filepath A character string defining the filepath to the orginial audio file.
 #' @param species A character string defining the species (as listed in BirdNET).
@@ -35,7 +36,7 @@ validate_results <- function (data, species = "all", time_buffer = 0, conf = 0, 
     data <- data[common_name == species,]
 
   }
-  data <- data[confidence >= conf,]
+
 
   verifs <- c()
   verif.options <- c("y", "n", "r", "q", "s")
@@ -55,7 +56,7 @@ validate_results <- function (data, species = "all", time_buffer = 0, conf = 0, 
   if(!"confidence" %in% names(data)){
     data[,confidence := 0]
   }
-
+  data <- data[confidence >= conf,]
 
   i <- 1
   while (i <= nrow(data)) {
@@ -202,5 +203,4 @@ validate_results <- function (data, species = "all", time_buffer = 0, conf = 0, 
   return(data)
 
 }
-
 
