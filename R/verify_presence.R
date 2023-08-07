@@ -75,10 +75,9 @@ verify_presence <- function (data, species = 'all', conf = 0) {
 
         cat(paste( "Enter \n 'y' for yes,\n",
                    "'n' for no,\n",
-                   "'r' for review,\n",
                    "'p' to play audio segment,\n",
                    "'w' to write segment as wav file to working directory,\n",
-                   "'s' to skip to next segment (and log as NA)",
+                   "'s' to skip to next species (and log as 0 for not present)",
                    "'a' to add a note \n",
                    "'q' for quit."))
 
