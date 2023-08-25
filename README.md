@@ -24,7 +24,7 @@ install.packages("devtools")
 Once you've installed that (or if you had it already), you can install PAMassist with the following line of code:
 
 ```
-devtools::install_github("yourusername/yourreponame")
+devtools::install_github("johannesnelson/PAMassist")
 ```
 ## Usage
 
