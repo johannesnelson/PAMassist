@@ -19,8 +19,10 @@ ui <- dashboardPage(
               accept = c('text/csv',
                          'text/comma-separated-values,text/plain',
                          '.csv')),
-    uiOutput("species_dropdown"),
-    uiOutput("conf_val")
+    #uiOutput("species_dropdown"),
+    selectInput("species", "Species:", choices = c("All"), selected = "All", multiple = TRUE),
+    uiOutput("conf_val"),
+    uiOutput("min_detections")
 
   ),
   dashboardBody(
@@ -81,17 +83,44 @@ server <- function(input, output, session) {
   })
 
 
-  output$species_dropdown <- renderUI({
+  # output$species_dropdown <- renderUI({
+  #   data_to_show <- my_data()
+  #   data_to_show <- data_to_show[data_to_show$confidence >= input$conf_val,]
+  #   unique_species <- c("All", unique(data_to_show$common_name))
+  #   selectInput("species", "Species:", choices = unique_species, selected = "All", multiple = TRUE)
+  # })
+
+
+  # Observe any changes in 'my_data' or 'input$conf_val'
+  # and update the species dropdown choices accordingly
+  observe({
     data_to_show <- my_data()
     data_to_show <- data_to_show[data_to_show$confidence >= input$conf_val,]
     unique_species <- c("All", unique(data_to_show$common_name))
-    selectInput("species", "Species:", choices = unique_species, selected = "All", multiple = TRUE)
+
+    current_selected <- isolate(input$species)  # Grab the current selection without triggering reactivity
+    valid_current_selected <- current_selected[current_selected %in% unique_species]
+
+    if (length(valid_current_selected) == 0) {
+      selected_species <- "All"
+    } else {
+      selected_species <- valid_current_selected
+    }
+
+    updateSelectInput(session, "species", choices = unique_species, selected = selected_species)
   })
+
+
 
 
   output$conf_val <- renderUI({
     sliderInput(inputId = "conf_val", label = "Confidence Cutoff:", min = 0, max = 1.0, value = 0.1)
   })
+
+  output$min_detections <- renderUI({
+    sliderInput(inputId = "min_detections", label = "Minimum Number of Detections:", min = 1, max = 500, value = 30)
+  })
+
 
   output$tabular_data <- renderDT({
     data_to_show <- my_data()[,c('common_name', 'confidence')]
@@ -119,7 +148,8 @@ server <- function(input, output, session) {
     data_to_show <- my_data() %>%
       filter(confidence >= input$conf_val) %>%
       group_by(common_name) %>%
-      summarise(count = n())
+      summarise(count = n()) %>%
+      filter(count >= input$min_detections)  # Filtering by minimum number of detections
 
     if (!"All" %in% input$species) {
       data_to_show <- data_to_show[data_to_show$common_name %in% input$species,]
